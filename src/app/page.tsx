@@ -1,65 +1,81 @@
-import Image from "next/image";
+import { BenefitsSection } from "@/components/BenefitsSection";
+import { LocationSection } from "@/components/LocationSection";
+import { PromoGallery } from "@/components/PromoGallery";
+import { ReviewsSection } from "@/components/ReviewsSection";
+import { VideoSection } from "@/components/VideoSection";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="bg-white text-slate-900">
+      <section className="relative overflow-hidden bg-slate-900 text-white">
+        <div className="absolute inset-0">
+          <img
+            src="/portada-mazamitla-2.jpg"
+            alt="Cúpulas coloniales bajo un cielo azul"
+            className="h-full w-full scale-125 object-cover object-center sm:scale-115 lg:scale-100"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-slate-900" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-5xl flex-col items-center justify-center px-6 pt-12 pb-6 text-center sm:min-h-[55vh] sm:pt-16 sm:pb-10 lg:min-h-[60vh] lg:pt-20 lg:pb-14">
+          <h1 className="text-4xl font-extrabold uppercase tracking-tight drop-shadow-[0_10px_24px_rgba(0,0,0,0.65)] sm:text-5xl lg:text-6xl">
+            Renta de Cabañas Chávez
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 max-w-2xl text-lg text-white/90">
+            Escápate a la sierra con cabañas acogedoras y vistas increíbles.
           </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-3 sm:flex-row sm:gap-5">
+            <a
+              href="/cabanas"
+              className="w-full max-w-xs rounded-full bg-white px-7 py-3 text-sm font-semibold uppercase tracking-tight text-slate-900 shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/25 sm:w-auto sm:px-8 sm:text-base"
+            >
+              Ver cabañas
+            </a>
+            <a
+              href="/tours"
+              className="w-full max-w-xs rounded-full border border-white/80 bg-white/10 px-7 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:bg-white/20 hover:shadow-2xl hover:shadow-black/20 sm:w-auto sm:px-8 sm:text-base"
+            >
+              Tours
+            </a>
+            <a
+              href="https://wa.me/52XXXXXXXXXX"
+              className="w-full max-w-xs rounded-full border border-white/70 px-7 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:border-white hover:shadow-2xl hover:shadow-black/20 sm:w-auto sm:px-8 sm:text-base"
+            >
+              WhatsApp
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <PromoGallery />
+      <VideoSection />
+      <BenefitsSection />
+      <LocationSection />
+      <ReviewsSection />
+
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        <div className="flex flex-col items-center gap-4 rounded-2xl bg-slate-900 px-6 py-10 text-center text-white shadow-lg">
+          <h3 className="text-2xl font-semibold">¿Listo para cotizar?</h3>
+          <p className="text-sm text-white/80">
+            Escríbenos por WhatsApp y arma tu reserva al instante.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href="/cabanas"
+              className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-tight text-slate-900 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/30"
+            >
+              Ver cabañas
+            </a>
+            <a
+              href="https://wa.me/52XXXXXXXXXX"
+              className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:border-white hover:shadow-2xl hover:shadow-black/25"
+            >
+              Cotiza por WhatsApp
+            </a>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
