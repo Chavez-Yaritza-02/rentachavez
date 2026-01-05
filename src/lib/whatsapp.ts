@@ -23,3 +23,34 @@ export function buildWaLink({
 
   return `https://wa.me/${phoneE164}?text=${encodeURIComponent(text)}`;
 }
+
+export function buildWhatsAppLink({
+  nombre,
+  ubicacion,
+  entrada,
+  salida,
+  personas,
+}: {
+  nombre: string;
+  ubicacion?: string;
+  entrada: string;
+  salida: string;
+  personas: string;
+}) {
+  const mensaje = `
+Hola 👋
+Me gustaría cotizar la siguiente cabaña:
+
+🏡 Cabaña: ${nombre}
+📍 Ubicación: ${ubicacion || "Mazamitla, Jalisco"}
+
+📅 Entrada: ${entrada}
+📅 Salida: ${salida}
+👥 Personas: ${personas}
+
+  Gracias 😊
+  `.trim();
+
+  const telefono = "5213312726618";
+  return `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+}

@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+
 export type Cabana = {
   slug: string;
   nombre: string;
@@ -22,18 +25,72 @@ const defaultDescripcion = "Descripción pendiente. Contáctanos para más detal
 const defaultUbicacion = "Mazamitla, Jalisco";
 const defaultPrecio = "Cotiza por WhatsApp";
 
-const fotos = (slug: string) =>
-  Array.from({ length: 10 }, (_, i) => `/img/${slug}/${i + 1}.jpg`);
+const validExtensions = new Set([".jpg", ".jpeg", ".png"]);
+
+const fotos = (slug: string) => {
+  try {
+    const dir = path.join(process.cwd(), "public", "img", slug);
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    const collator = new Intl.Collator(undefined, {
+      numeric: true,
+      sensitivity: "base",
+    });
+
+    return entries
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .filter((name) => validExtensions.has(path.extname(name).toLowerCase()))
+      .sort((a, b) => collator.compare(a, b))
+      .map((name) => `/img/${slug}/${name}`);
+  } catch {
+    return [];
+  }
+};
+
+const placeholderFotos = Array.from(
+  { length: 10 },
+  () => "/img/placeholder.jpg",
+);
 
 export const cabanas: Cabana[] = [
   {
     slug: "apolo",
     nombre: "Cabaña Apolo",
-    capacidad: "Hasta 12 personas",
+    capacidad: "12",
     ubicacion: "Mazamitla, Jalisco",
     precio: defaultPrecio,
-    descripcion:
-      "Cabaña Apolo es un refugio amplio rodeado de pinos, ideal para familias y grupos. Cuenta con espacios luminosos, terraza con barra y vista arbolada, además de áreas sociales como sala, comedor y mesa de billar para convivir día y noche.",
+    descripcion: `
+Nuestra cabaña está equipada para que disfruten una estancia cómoda, cálida y divertida.
+
+🛏 4 habitaciones
+2 habitaciones con 2 camas matrimoniales
+2 habitaciones con 1 cama matrimonial
+
+🏠 3 habitaciones en planta alta y 1 en planta baja
+
+🚿 2 baños completos
+🍳 Cocina equipada
+🛋 Sala
+🔥 Chimenea
+🍽 Comedor
+🌄 Terraza con barra
+🎱 Mesa de billar
+🔊 Bocina Bluetooth
+🌿 Jardín
+🚗 Estacionamiento
+📶 WIFI Starlink
+🏞 Balcón con sala exterior y vista arbolada
+🏐 Malla de voleibol y balón
+💧 Agua caliente 24/7
+
+🧴 Incluye durante su estancia:
+🔥 Una carga de leña
+💧 Un galón de agua (4L)
+🛁 4 toallas grandes + 2 de mano
+🎲 Juegos de mesa y para niños
+🧼 Jabón para manos
+🍽 Jabón para trastes
+`,
     descripcionCorta:
       "Nuestra cabaña está equipada para que disfruten una estancia cómoda, cálida y divertida.",
     amenidades: [
@@ -74,7 +131,6 @@ export const cabanas: Cabana[] = [
       "/img/apolo/7.jpg",
       "/img/apolo/8.jpg",
       "/img/apolo/9.jpg",
-      "/img/apolo/10.jpg",
     ],
   },
   {
@@ -98,36 +154,6 @@ export const cabanas: Cabana[] = [
     fotos: fotos("cabania-luna"),
   },
   {
-    slug: "cabania-sol",
-    nombre: "Cabaña Sol",
-    capacidad: "Hasta 20 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-sol"),
-  },
-  {
-    slug: "cabania-estrella",
-    nombre: "Cabaña Estrella",
-    capacidad: "Hasta 6 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-estrella"),
-  },
-  {
-    slug: "cabania-estrellita",
-    nombre: "Cabaña Estrellita",
-    capacidad: "Hasta 4 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-estrellita"),
-  },
-  {
     slug: "cabania-suite",
     nombre: "Cabaña Suite",
     capacidad: "Hasta 2 personas",
@@ -136,16 +162,6 @@ export const cabanas: Cabana[] = [
     descripcion: defaultDescripcion,
     amenidades: defaultAmenidades,
     fotos: fotos("cabania-suite"),
-  },
-  {
-    slug: "cabania-michelle",
-    nombre: "Cabaña Michelle",
-    capacidad: "Hasta 14 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-michelle"),
   },
   {
     slug: "cabania-gemela",
@@ -164,28 +180,28 @@ export const cabanas: Cabana[] = [
     ubicacion: defaultUbicacion,
     precio: defaultPrecio,
     descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
+    amenidades: [
+      "👨‍👩‍👧‍👦 Capacidad para 10 personas",
+      "🛏️ 3 habitaciones",
+      "🛌 5 camas matrimoniales",
+      "🚿 1 baño completo",
+      "🚽 1 medio baño",
+      "🍳 Cocina equipada",
+      "🛋️ Sala de estar",
+      "📺 Smart TV",
+      "🌲 Jardín amplio",
+      "⛩️ 2 terrazas (frontal y trasera)",
+      "🍖 Asador",
+      "🔥 Fogatera",
+      "🔥 Chimenea interior",
+      "🪑 Hamaca",
+      "🎯 Futbolito",
+      "🚗 Estacionamiento privado",
+      "🐶 Pet friendly",
+      "💧 Galón de agua incluido",
+      "🪵 Carga de leña incluida",
+    ],
     fotos: fotos("cabania-rio-de-la-montana"),
-  },
-  {
-    slug: "mirador-8",
-    nombre: "Cabaña Mirador",
-    capacidad: "Hasta 8 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("mirador-8"),
-  },
-  {
-    slug: "bosque-9",
-    nombre: "Cabaña Bosque",
-    capacidad: "Hasta 9 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("bosque-9"),
   },
   {
     slug: "cabania-joel",
@@ -198,74 +214,33 @@ export const cabanas: Cabana[] = [
     fotos: fotos("cabania-joel"),
   },
   {
-    slug: "cabania-dylan",
-    nombre: "Cabaña Dylan",
-    capacidad: "Hasta 6 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-dylan"),
-  },
-  {
-    slug: "cabania-vane",
-    nombre: "Cabaña Vane",
-    capacidad: "Hasta 8 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-vane"),
-  },
-  {
-    slug: "cabania-luz-de-luna",
-    nombre: "Cabaña Luz de Luna",
-    capacidad: "Hasta 15 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-luz-de-luna"),
-  },
-  {
     slug: "cabania-loma-alta",
     nombre: "Cabaña Loma Alta",
     capacidad: "Hasta 12 personas",
     ubicacion: defaultUbicacion,
     precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
+    descripcion:
+      "Cabaña Loma Alta es el punto de encuentro para familias y amigos que buscan relajarse y convivir. Amplia, cálida y con vistas arboladas, tiene espacios para cocinar juntos, ver pelis o prender el fogatero bajo el cielo estrellado.",
+    amenidades: [
+      "🛏️ 4 habitaciones",
+      "🛌 4 camas matrimoniales",
+      "🛏️ 3 camas individuales",
+      "🛋️ 1 sofá cama",
+      "🏠 2 habitaciones en planta alta, 2 en planta baja",
+      "🚿 2 baños completos",
+      "🍳 Cocina equipada",
+      "🛋️ Sala",
+      "📺 TV y WiFi",
+      "🍽️ Comedor",
+      "🌿 Terraza",
+      "🍖 Asador",
+      "🪑 Bancas",
+      "🎲 Juegos de mesa",
+      "🔥 Fogatero",
+      "☄️ Columpios",
+      "🚗 Estacionamiento privado",
+    ],
     fotos: fotos("cabania-loma-alta"),
-  },
-  {
-    slug: "cabania-selena",
-    nombre: "Cabaña Selena",
-    capacidad: "Hasta 4 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-selena"),
-  },
-  {
-    slug: "cabania-luz-grande",
-    nombre: "Cabaña Luz Grande",
-    capacidad: "Hasta 6 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-luz-grande"),
-  },
-  {
-    slug: "dos-pinos-8",
-    nombre: "Cabaña Dos Pinos",
-    capacidad: "Hasta 8 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("dos-pinos-8"),
   },
   {
     slug: "dos-pinos-12",
@@ -278,16 +253,6 @@ export const cabanas: Cabana[] = [
     fotos: fotos("dos-pinos-12"),
   },
   {
-    slug: "cabania-luna-de-octubre",
-    nombre: "Cabaña Luna de Octubre",
-    capacidad: "Hasta 12 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-luna-de-octubre"),
-  },
-  {
     slug: "cabania-azteca-1",
     nombre: "Cabaña Azteca 1",
     capacidad: "Hasta 10 personas",
@@ -296,36 +261,6 @@ export const cabanas: Cabana[] = [
     descripcion: defaultDescripcion,
     amenidades: defaultAmenidades,
     fotos: fotos("cabania-azteca-1"),
-  },
-  {
-    slug: "cabania-mimi-jumbo",
-    nombre: "Cabaña Mimi Jumbo",
-    capacidad: "Hasta 20 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-mimi-jumbo"),
-  },
-  {
-    slug: "cabania-mimi-grande",
-    nombre: "Cabaña Mimi Grande",
-    capacidad: "Hasta 14 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-mimi-grande"),
-  },
-  {
-    slug: "cabania-mimi-chica",
-    nombre: "Cabaña Mimi Chica",
-    capacidad: "Hasta 4 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("cabania-mimi-chica"),
   },
   {
     slug: "cabania-el-potrillo",
@@ -346,26 +281,6 @@ export const cabanas: Cabana[] = [
     descripcion: defaultDescripcion,
     amenidades: defaultAmenidades,
     fotos: fotos("cabania-lindo-amanecer"),
-  },
-  {
-    slug: "luz-chica-1",
-    nombre: "Cabaña Luz Chica",
-    capacidad: "Hasta 12 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("luz-chica-1"),
-  },
-  {
-    slug: "luz-chica-2",
-    nombre: "Cabaña Luz Chica",
-    capacidad: "Hasta 12 personas",
-    ubicacion: defaultUbicacion,
-    precio: defaultPrecio,
-    descripcion: defaultDescripcion,
-    amenidades: defaultAmenidades,
-    fotos: fotos("luz-chica-2"),
   },
   {
     slug: "cabania-los-carnales-2",

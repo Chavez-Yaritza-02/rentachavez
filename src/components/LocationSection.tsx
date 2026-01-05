@@ -32,7 +32,7 @@ export function LocationSection() {
               Ver cabañas
             </a>
             <a
-              href="https://wa.me/52XXXXXXXXXX"
+              href="https://wa.me/message/VQKEZNH6V7XLH1"
               className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:border-white hover:shadow-2xl hover:shadow-black/25"
             >
               WhatsApp

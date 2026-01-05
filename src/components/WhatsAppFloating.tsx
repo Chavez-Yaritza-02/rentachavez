@@ -1,7 +1,7 @@
 export function WhatsAppFloating() {
   return (
     <a
-      href="https://wa.me/52XXXXXXXXXX"
+      href="https://wa.me/message/VQKEZNH6V7XLH1"
       target="_blank"
       rel="noreferrer"
       className="fixed bottom-4 right-4 z-40 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 px-3.5 py-3 text-sm font-semibold text-white shadow-2xl shadow-emerald-500/35 ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:shadow-emerald-500/45 active:translate-y-0 sm:bottom-6 sm:right-6 sm:px-5"

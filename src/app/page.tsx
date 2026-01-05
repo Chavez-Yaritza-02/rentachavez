@@ -1,7 +1,6 @@
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { LocationSection } from "@/components/LocationSection";
 import { PromoGallery } from "@/components/PromoGallery";
-import { ReviewsSection } from "@/components/ReviewsSection";
 import { VideoSection } from "@/components/VideoSection";
 
 export default function Home() {
@@ -12,7 +11,7 @@ export default function Home() {
           <img
             src="/portada-mazamitla-2.jpg"
             alt="Cúpulas coloniales bajo un cielo azul"
-            className="h-full w-full scale-125 object-cover object-center sm:scale-115 lg:scale-100"
+            className="h-full w-full object-cover object-center"
             loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-slate-900" />
@@ -36,10 +35,10 @@ export default function Home() {
               href="/tours"
               className="w-full max-w-xs rounded-full border border-white/80 bg-white/10 px-7 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:bg-white/20 hover:shadow-2xl hover:shadow-black/20 sm:w-auto sm:px-8 sm:text-base"
             >
-              Tours
+              Cuatrimotos RZR
             </a>
             <a
-              href="https://wa.me/52XXXXXXXXXX"
+              href="https://wa.me/message/VQKEZNH6V7XLH1"
               className="w-full max-w-xs rounded-full border border-white/70 px-7 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-xl shadow-black/10 transition hover:-translate-y-0.5 hover:border-white hover:shadow-2xl hover:shadow-black/20 sm:w-auto sm:px-8 sm:text-base"
             >
               WhatsApp
@@ -52,8 +51,6 @@ export default function Home() {
       <VideoSection />
       <BenefitsSection />
       <LocationSection />
-      <ReviewsSection />
-
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
         <div className="flex flex-col items-center gap-4 rounded-2xl bg-slate-900 px-6 py-10 text-center text-white shadow-lg">
           <h3 className="text-2xl font-semibold">¿Listo para cotizar?</h3>
@@ -68,7 +65,7 @@ export default function Home() {
               Ver cabañas
             </a>
             <a
-              href="https://wa.me/52XXXXXXXXXX"
+              href="https://wa.me/message/VQKEZNH6V7XLH1"
               className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 py-3 text-sm font-semibold uppercase tracking-tight text-white shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:border-white hover:shadow-2xl hover:shadow-black/25"
             >
               Cotiza por WhatsApp

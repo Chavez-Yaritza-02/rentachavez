@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import type React from "react";
-import { useMemo, useState } from "react";
-import { buildWaLink } from "@/lib/whatsapp";
+import { useCallback, useMemo, useState } from "react";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 import type { Cabana } from "@/data/cabanas";
 
 const FALLBACK_IMG = "/img/placeholder.jpg";
@@ -40,15 +40,20 @@ export function CabanaDetailClient({ cabana }: Props) {
 
   const whatsappHref = useMemo(
     () =>
-      buildWaLink({
-        phoneE164: "52XXXXXXXXXX",
+      buildWhatsAppLink({
         nombre: cabana.nombre,
+        ubicacion: cabana.ubicacion,
         entrada,
         salida,
         personas,
       }),
-    [cabana.nombre, entrada, personas, salida],
+    [cabana.nombre, cabana.ubicacion, entrada, personas, salida],
   );
+
+  const handleWhatsAppClick = useCallback(() => {
+    if (fechaError) return;
+    window.open(whatsappHref, "_blank");
+  }, [fechaError, whatsappHref]);
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
@@ -214,18 +219,15 @@ export function CabanaDetailClient({ cabana }: Props) {
               <p className="text-sm text-red-600">{fechaError}</p>
             )}
           </div>
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            type="button"
+            onClick={handleWhatsAppClick}
             className={`mt-4 inline-flex w-full items-center justify-center rounded-full bg-green-500 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-green-500/30 ${fechaError ? "cursor-not-allowed opacity-60" : ""}`}
             aria-disabled={Boolean(fechaError)}
-            onClick={(e) => {
-              if (fechaError) e.preventDefault();
-            }}
+            disabled={Boolean(fechaError)}
           >
             Cotizar por WhatsApp
-          </a>
+          </button>
         </aside>
       </div>
     </section>
